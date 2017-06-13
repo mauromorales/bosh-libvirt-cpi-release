@@ -1,0 +1,6 @@
+---
+final_name: bosh-libvirt-cpi
+blobstore:
+  provider: local
+  options:
+    blobstore_path: /tmp/bosh-libvirt-cpi-blobs

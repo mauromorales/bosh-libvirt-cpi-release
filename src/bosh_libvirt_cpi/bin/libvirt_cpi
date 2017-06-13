@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+
+require 'yaml'
+require 'ostruct'
+require 'bosh/cpi'
+require 'cloud/libvirt'
+
+cpi_config = YAML.load_file(ARGV.shift)
+ssl_ca_file = ARGV.shift
+
+cloud_config = OpenStruct.new(:logger => Logger.new(STDERR))
+
+Bosh::Clouds::Config.configure(cloud_config)
+
+cpi_log = StringIO.new
+
+cpi_lambda = lambda do |context| 
+
+  cloud_properties = cpi_config['cloud']['properties']
+  cloud_properties['libvirt'].merge(context)
+
+  Bosh::Clouds::Libvirt.new(cloud_properties)
+end
+
+cli = Bosh::Cpi::Cli.new(cpi_lambda, cpi_log, STDOUT)
+
+cli.run(ARGF.read)

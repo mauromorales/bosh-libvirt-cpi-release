@@ -1,0 +1,103 @@
+---
+name: libvirt_cpi
+
+templates:
+  cpi.erb: bin/cpi
+  cpi.json.erb: config/cpi.json
+
+packages:
+- ruby_libvirt_cpi
+- bosh_libvirt_cpi
+
+properties:
+  libvirt.host:
+    description: URL of the libvirt Identity endpoint to connect to (required)
+  libvirt.pool_name:
+    description: Libvirt storage pool name (required)
+
+  ntp:
+    description: List of NTP servers
+    default: []
+    example: ["0.us.pool.ntp.org", "1.us.pool.ntp.org"]
+
+  agent.blobstore.access_key_id:
+    description: access_key_id for agent used by s3 blobstore plugin
+  agent.blobstore.secret_access_key:
+    description: secret_access_key for agent used by s3 blobstore plugin
+  agent.mbus:
+    description: Message bus endpoint for the agent to start accepting agent requests
+    example: https://user:password@192.168.0.1:5000
+  agent.blobstore.address:
+    description: Address for agent to connect to blobstore server used by simple blobstore plugin
+  agent.blobstore.use_ssl:
+    description: Whether the agent blobstore plugin should use SSL to connect to the blobstore server
+  agent.blobstore.s3_region:
+    description: AWS region for agent used by s3 blobstore plugin
+  agent.blobstore.s3_port:
+    description: Port of agent blobstore server used by s3 blobstore plugin
+  agent.blobstore.host:
+    description: Host of agent blobstore server used by simple blobstore plugin
+  agent.blobstore.s3_force_path_style:
+    description: Whether the agent blobstore plugin will always use path style for bucket access
+  agent.blobstore.ssl_verify_peer:
+    description: Whether the agent blobstore plugin should verify its peer when using SSL
+  agent.blobstore.s3_multipart_threshold:
+    description: Agent blobstore threshold for multipart uploads
+  agent.blobstore.s3_signature_version:
+    description: Signature version used to connect to an s3 blobstore
+
+  blobstore.address:
+    description: Address for agent to connect to blobstore server used by 'simple' blobstore plugin
+  blobstore.port:
+    description: Port for agent to connect to blobstore server used by 'simple' blobstore plugin
+  blobstore.agent.user:
+    description: Username agent uses to connect to blobstore used by 'simple' blobstore plugin
+  blobstore.agent.password:
+    description: Password agent uses to connect to blobstore used by 'simple' blobstore plugin
+  blobstore.provider:
+    description: Provider of the blobstore used by director and agent (simple|local)
+  blobstore.path:
+    description: Path used by 'local' blobstore plugin
+  blobstore.bucket_name:
+    description: S3 Bucket used by s3 blobstore plugin
+  blobstore.access_key_id:
+    description: access_key_id used by s3 blobstore plugin
+  blobstore.secret_access_key:
+    description: secret_access_key used by s3 blobstore plugin
+  blobstore.host:
+    description: Host of blobstore server used by simple blobstore plugin
+  blobstore.s3_region:
+    description: AWS region used by s3 blobstore plugin
+  blobstore.s3_port:
+    description: Port of blobstore server used by s3 blobstore plugin
+    default: 443
+  blobstore.use_ssl:
+    description: Whether the simple blobstore plugin should use SSL to connect to the blobstore server
+    default: true
+  blobstore.ssl_verify_peer:
+    description: Verify the SSL certificate used on the blobstore?
+    default: true
+  blobstore.s3_force_path_style:
+    description: Whether s3 blobstore plugin will always use path style for bucket access
+    default: false
+  blobstore.s3_multipart_threshold:
+    description: Simple blobstore threshold for multipart uploads
+  blobstore.s3_signature_version:
+    description: Signature version used to connect to an s3 blobstore
+
+  nats.user:
+    description: NATS username used by agent to subscribe to agent requests
+  nats.password:
+    description: NATS password used by agent to subscribe to agent requests
+  nats.address:
+    description: NATS address used by agent to subscribe to agent requests
+  nats.port:
+    description: NATS port used by agent to subscribe to agent requests
+    default: 4222
+
+  env.http_proxy:
+    description: Http proxy to connect to cloud API's
+  env.https_proxy:
+    description: Https proxy to connect to cloud API's
+  env.no_proxy:
+    description: No proxy environment variable

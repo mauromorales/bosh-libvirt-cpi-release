@@ -1,0 +1,11 @@
+---
+name: bosh_libvirt_cpi
+
+dependencies:
+- ruby_libvirt_cpi
+files:
+- bosh_libvirt_cpi/Gemfile
+- bosh_libvirt_cpi/Gemfile.lock
+- bosh_libvirt_cpi/bin/**/*
+- bosh_libvirt_cpi/lib/**/*
+- bosh_libvirt_cpi/vendor/package/**/*
