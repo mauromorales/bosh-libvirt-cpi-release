@@ -31,6 +31,23 @@ The following is the current state of the different API calls when using the BOS
   - delete_snapshot (not implemented)
   - current_vm_id (not implemented)
 
+This is an example how to deploy using bosh-cli and a modified version of
+[bosh-deployment](https://github.com/mauromorales/bosh-deployment).
+
+```
+bosh create-env ~/workspace/bosh-deployment/bosh.yml \
+  --state ./state.json \
+  -o ~/workspace/bosh-deployment/libvirt/cpi.yml \
+  --vars-store ./creds.yml \
+  -v director_name="Bosh Director" \
+  -v internal_ip=192.168.50.128 \
+  -v internal_gw=192.168.50.1 \
+  -v internal_cidr=192.168.50.0/24 \
+  -v libvirt_host=qemu:///system \
+  -v libvirt_pool_name=default \
+  --var-file private_key=./bosh.pem
+```
+
 ## Development
 
 To run integration tests you will need to set up the environment variable `BOSH_LIBVIRT_STEMCELL_PATH` to point to a qemu2 stemcell in your system.
